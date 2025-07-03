@@ -2,6 +2,7 @@ package com.ecom.mypersonalproject.controllers;
 
 import com.ecom.mypersonalproject.dtos.ProductRequestDtos;
 import com.ecom.mypersonalproject.dtos.ProductResponseDtos;
+import com.ecom.mypersonalproject.dtos.patchrequestdtos;
 import com.ecom.mypersonalproject.entities.Product;
 import com.ecom.mypersonalproject.services.ProductService;
 import jakarta.validation.Valid;
@@ -51,4 +52,11 @@ public class ProductController {
     public ResponseEntity<ProductResponseDtos> updateproductById(@PathVariable("id") long id, @Valid @RequestBody ProductRequestDtos pro){
              return new ResponseEntity<>(productService.updateProduct(id,pro),HttpStatus.OK);
     }
+
+    // ************** patch product by id ***********
+       @PatchMapping("/{id}")
+       public ResponseEntity<Product> patchProduct(@PathVariable("id") long id,  @RequestBody patchrequestdtos pro){
+           return new ResponseEntity<>(productService.patchProduct(id,pro),HttpStatus.OK);
+
+       }
 }

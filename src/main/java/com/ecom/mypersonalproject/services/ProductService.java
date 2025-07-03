@@ -2,6 +2,7 @@ package com.ecom.mypersonalproject.services;
 
 import com.ecom.mypersonalproject.dtos.ProductRequestDtos;
 import com.ecom.mypersonalproject.dtos.ProductResponseDtos;
+import com.ecom.mypersonalproject.dtos.patchrequestdtos;
 import com.ecom.mypersonalproject.entities.Product;
 import com.ecom.mypersonalproject.exceptions.EmptyList;
 import com.ecom.mypersonalproject.exceptions.ProductnotfoundException;
@@ -66,8 +67,30 @@ public class ProductService {
                 return response;
             }
             else
-                throw new productExistException("productId is not found!!!");
+                throw new productExistException("product Id is not found!!!");
     }
+
+     public Product patchProduct(long id, patchrequestdtos pro){
+        //logging
+         //  System.out.println("PATCH called for ID: " + id);
+       //  System.out.println("Incoming DTO: name=" + pro.getName() + ", price=" + pro.getPrice());
+                if(productRepository.existsById(id)){
+                    Product product=productRepository.findById(id).get();
+                    if(pro.getName()!=null)
+                    {
+                        product.setProductName(pro.getName());
+                    }
+                    if(pro.getPrice() != null)
+                    {
+                        product.setPrice(pro.getPrice());
+                    }
+                Product response=  productRepository.save(product);
+
+                   return response;
+                }
+                else
+                    throw new productExistException("product Id is not found!!!");
+     }
     public ProductResponseDtos convertProducttoProductResponseDtos(Product product) {
 
         ProductResponseDtos response = new ProductResponseDtos();
