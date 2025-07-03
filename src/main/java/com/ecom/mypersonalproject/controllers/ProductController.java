@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.service.annotation.PutExchange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,4 +45,10 @@ public class ProductController {
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
+
+    // ************* update product by id *********
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponseDtos> updateproductById(@PathVariable("id") long id, @Valid @RequestBody ProductRequestDtos pro){
+             return new ResponseEntity<>(productService.updateProduct(id,pro),HttpStatus.OK);
+    }
 }

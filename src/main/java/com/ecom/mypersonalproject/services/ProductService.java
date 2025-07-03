@@ -54,6 +54,20 @@ public class ProductService {
         else
             return pros.get();
     }
+
+    public ProductResponseDtos updateProduct(long id,ProductRequestDtos pro){
+            if(productRepository.existsById(id))
+            {
+                Product product=productRepository.findById(id).get();
+                product.setProductName(pro.getProductName());
+                product.setPrice(pro.getPrice());
+                productRepository.save(product);
+                ProductResponseDtos response = convertProducttoProductResponseDtos(product);
+                return response;
+            }
+            else
+                throw new productExistException("productId is not found!!!");
+    }
     public ProductResponseDtos convertProducttoProductResponseDtos(Product product) {
 
         ProductResponseDtos response = new ProductResponseDtos();
