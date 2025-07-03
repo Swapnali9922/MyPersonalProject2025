@@ -59,4 +59,11 @@ public class ProductController {
            return new ResponseEntity<>(productService.patchProduct(id,pro),HttpStatus.OK);
 
        }
+
+     // *************** Delete product By id *******
+        @DeleteMapping("/{id}")
+        public ResponseEntity<String> deleteByid(@PathVariable("id") long id){
+            productService.deleteById(id);
+            return new ResponseEntity<>("Product deleted successfully",HttpStatus.OK);
+        }
 }

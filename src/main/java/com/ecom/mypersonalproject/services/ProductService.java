@@ -91,6 +91,14 @@ public class ProductService {
                 else
                     throw new productExistException("product Id is not found!!!");
      }
+
+     public void deleteById(long id) {
+        if(productRepository.existsById(id))
+            productRepository.deleteById(id);
+        else
+            throw new productExistException("product Id is not found!!!");
+
+     }
     public ProductResponseDtos convertProducttoProductResponseDtos(Product product) {
 
         ProductResponseDtos response = new ProductResponseDtos();
