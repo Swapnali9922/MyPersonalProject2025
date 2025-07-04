@@ -23,6 +23,10 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    public int add(int a,int b){
+        return a+b;
+    }
     // **************create product api***********
     @PostMapping
     public ResponseEntity<ProductResponseDtos> addNewProduct(@Valid @RequestBody ProductRequestDtos pro)
@@ -34,6 +38,7 @@ public class ProductController {
 
     @GetMapping ("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") long productid){
+
         return new ResponseEntity<>(productService.getProductById(productid),HttpStatus.OK);
     }
 
@@ -43,6 +48,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts(){
         List<Product> products=new ArrayList<>();
         products=productService.getAllProducts();
+
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
