@@ -99,6 +99,10 @@ public class ProductService {
             throw new productExistException("product Id is not found!!!");
 
      }
+     public long count() {
+        long c=productRepository.count();
+                return c;
+     }
     public ProductResponseDtos convertProducttoProductResponseDtos(Product product) {
 
         ProductResponseDtos response = new ProductResponseDtos();

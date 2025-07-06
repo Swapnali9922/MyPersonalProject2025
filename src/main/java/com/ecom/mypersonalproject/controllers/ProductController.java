@@ -72,4 +72,10 @@ public class ProductController {
             productService.deleteById(id);
             return new ResponseEntity<>("Product deleted successfully",HttpStatus.OK);
         }
+
+        //count all records
+    @GetMapping("/count")
+    public long count(){
+        return productService.count();
+    }
 }
