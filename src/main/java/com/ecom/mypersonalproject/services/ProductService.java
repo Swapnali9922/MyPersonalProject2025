@@ -21,6 +21,12 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    private EmailService emailService;
+
+    public ProductService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
     public ProductResponseDtos addNewProduct(ProductRequestDtos dtos) {
         Optional<Product> pro= productRepository.findByProductName(dtos.getProductName());
         if(pro.isPresent()) {
@@ -31,7 +37,8 @@ public class ProductService {
         product.setPrice(dtos.getPrice());
 
         Product save = productRepository.save(product);
-
+        String recepient="swapnalipatil2801@gmail.com";
+        emailService.sendProductCreatedEmail(recepient, save);
         ProductResponseDtos response = convertProducttoProductResponseDtos(save);
         return response;
 
@@ -93,8 +100,12 @@ public class ProductService {
      }
 
      public void deleteById(long id) {
-        if(productRepository.existsById(id))
+        if(productRepository.existsById(id)){
             productRepository.deleteById(id);
+            String recepient="swapnalipatil2801@gmail.com";
+            emailService.deletedproductmail(recepient,id);
+        }
+
         else
             throw new productExistException("product Id is not found!!!");
 
