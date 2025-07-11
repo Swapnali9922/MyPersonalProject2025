@@ -5,8 +5,10 @@ import com.ecom.mypersonalproject.dtos.ProductResponseDtos;
 import com.ecom.mypersonalproject.dtos.patchrequestdtos;
 import com.ecom.mypersonalproject.entities.Product;
 import com.ecom.mypersonalproject.services.ProductService;
+import com.ecom.mypersonalproject.services.ProductServiceMain;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,8 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+    @Qualifier("Myownservice")
+    private ProductServiceMain productService;
 
     public int add(int a,int b){
         return a+b;
@@ -50,6 +53,8 @@ public class ProductController {
         products=productService.getAllProducts();
 
         return new ResponseEntity<>(products,HttpStatus.OK);
+
+
     }
 
 
@@ -75,7 +80,16 @@ public class ProductController {
 
         //count all records
     @GetMapping("/count")
-    public long count(){
+    public long count() {
         return productService.count();
     }
-}
+
+       // @GetMapping("/findAll")
+//        public ResponseEntity<List<Product>> getAllProductBypagination(@RequestParam int pagenumber, @RequestParam int pagesize)
+//        {
+//            List<Product> products = new ArrayList<>();
+//            products = productService.geALlProductByPagination(pagenumber, pagesize);
+//            return new ResponseEntity<>(products, HttpStatus.OK);
+//        }
+    }
+

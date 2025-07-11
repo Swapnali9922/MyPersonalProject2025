@@ -9,14 +9,19 @@ import com.ecom.mypersonalproject.exceptions.ProductnotfoundException;
 import com.ecom.mypersonalproject.exceptions.productExistException;
 import com.ecom.mypersonalproject.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class ProductService {
+import static org.antlr.v4.runtime.tree.xpath.XPath.findAll;
+
+@Service("Myownservice")
+public class ProductService implements ProductServiceMain{
 
     @Autowired
     private ProductRepository productRepository;
@@ -114,6 +119,18 @@ public class ProductService {
         long c=productRepository.count();
                 return c;
      }
+//     public List<Product> geALlProductByPagination(int pagenumber,int pagesize){
+//        Page<Product> page=productRepository.findAll(PageRequest.of(
+//                 pagenumber,pagesize, (Sort.by("productName"))
+//         ));
+//        List<Product> pro=page.getContent();
+//        return pro;
+
+    // }
+
+
+
+
     public ProductResponseDtos convertProducttoProductResponseDtos(Product product) {
 
         ProductResponseDtos response = new ProductResponseDtos();
